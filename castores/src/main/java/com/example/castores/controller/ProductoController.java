@@ -71,4 +71,11 @@ public class ProductoController {
 
         return "redirect:/producto/listar";
     }
+
+    @PostMapping("/estatus")
+    public String editarProducto(@ModelAttribute Producto producto) {
+        productoService.actualizarProductoEstatus(producto.getIdproducto(), producto.getEstatus());
+
+        return "redirect:/producto/listar";
+    }
 }

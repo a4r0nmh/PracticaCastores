@@ -38,9 +38,18 @@ public class ProductoService {
         }
     }
 
+    public void actualizarProductoEstatus(int idproducto, int estatus) {
+        int filasAfectadas = productoRepository.actualizarProductoEstatus(idproducto, estatus);
+
+        if (filasAfectadas == 0) {
+            throw new RuntimeException("No se encontró el producto con el ID especificado");
+        }
+    }
+
     @Transactional
     public Producto agregarProducto(Producto producto, Usuario usuario) {
 
+        producto.setEstatus(1);
         Producto productoS = productoRepository.save(producto);
         
         if (producto.getCantidad() > 0) {

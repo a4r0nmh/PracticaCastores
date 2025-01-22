@@ -16,12 +16,13 @@
         <input type="number" id="cantidad" name="cantidad" th:field="*{cantidad}" value="0"><br>
 
         <label for="estatus">Estatus:</label>
-        <select id="estatus" name="estatus" th:field="*{estatus}">
-            <option value="1">Activo</option>
-            <option value="0">Inactivo</option>
+        <select id="estatus" name="estatus" th:field="*{estatus}" disabled>
+            <option value="1" selected>Activo</option>
         </select>
         <br>
         <button type="submit">Guardar</button>
+        <br>
+        <a href="javascript:history.back()">Regresar</a>
     </form>
 </body>
 </html>
