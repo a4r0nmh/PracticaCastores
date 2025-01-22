@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario</title>
+</head>
+<body>
+    <h1>Inventario</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Estatus</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td th:text="${producto.cantidad}"></td>
+            <td th:text="${producto.estatus}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a href="javascript:history.back()">Regresar</a>
+</body>
+</html>

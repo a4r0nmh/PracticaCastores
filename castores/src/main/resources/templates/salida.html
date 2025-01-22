@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario Salida</title>
+</head>
+<body>
+    <h1>Inventario Salida</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Estatus</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td th:text="${producto.cantidad}"></td>
+            <td th:text="${producto.estatus}"></td>
+        </tr>
+        </tbody>
+    </table>
+<br>
+    <h3>Selecciona un Producto</h3>
+    <form th:action="@{/producto/editar}" th:object="${producto}" method="post">
+        <label for="producto">Producto:</label>
+        <select id="producto" name="producto" onchange="updateCantidad()">
+            <option value="" cantidad="0" disabled selected> Selecciona un producto </option>
+            <option th:each="producto : ${productos}"
+                    th:value="${producto.idproducto}"
+                    th:text="${producto.nombre}"
+                    th:cantidad="${producto.cantidad}">
+            </option>
+        </select>
+        <br>
+        <label for="cantidad">Cantidad del producto:</label>
+        <input type="number" id="cantidad" name="cantidad"  min="0" oninput="preventIncrement(this)">
+        <button type="submit">Retirar</button>
+    </form>
+    <br>
+    <a href="javascript:history.back()">Regresar</a>
+
+    <script>
+        function updateCantidad() {
+            const select = document.getElementById('producto');
+            const inputCantidad = document.getElementById('cantidad');
+
+            const selectedOption = select.options[select.selectedIndex];
+
+            const cantidad = selectedOption.getAttribute('cantidad');
+
+            inputCantidad.value = cantidad;
+        }
+
+        function preventIncrement(input) {
+            const select = document.getElementById('producto');
+            const inputCantidad = document.getElementById('cantidad');
+
+            const selectedOption = select.options[select.selectedIndex];
+
+            const cantidad = selectedOption.getAttribute('cantidad');
+
+            const valueO = cantidad;
+
+            const currentValue = parseInt(input.value, 10) || 0;
+
+            if (currentValue > valueO) {
+                inputCantidad.value = cantidad;
+            }
+        }
+    </script>
+</body>
+</html>

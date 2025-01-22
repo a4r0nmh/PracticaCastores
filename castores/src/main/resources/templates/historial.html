@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial</title>
+</head>
+<body>
+    <h1>Historial</h1>
+    <label for="filtro">Filtrar por:</label>
+    <select id="filtro" onchange="filtrarProductos()">
+        <option value="todos">Todos</option>
+        <option value="entrada">Entrada</option>
+        <option value="salida">Salida</option>
+    </select>
+    <table>
+        <thead>
+        <tr>
+            <th>Movimiento</th>
+            <th>Fecha</th>
+            <th>Usuario</th>
+            <th>Producto</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="item" th:each="item : ${historial}">
+            <td th:text="${item.movimiento}"></td>
+            <td th:text="${item.fecha}"></td>
+            <td th:text="${item.usuario.nombre}"></td>
+            <td th:text="${item.producto.nombre}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a href="/home">Regresar</a>
+
+    <script>
+        function filtrarProductos() {
+            const filtro = document.getElementById("filtro").value.toLowerCase();
+
+            const filas = document.querySelectorAll(".item");
+
+            filas.forEach(fila => {
+                const movimiento = fila.querySelector("td").textContent.toLowerCase();
+
+                if (filtro === "todos" || movimiento.includes(filtro)) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
